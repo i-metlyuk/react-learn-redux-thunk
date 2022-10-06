@@ -8,6 +8,11 @@ const TodoList = () => {
     return (
         <div>
             Todos: {todos.length}. Status: {status}. {error && <h4>{error}</h4>}
+            {
+                todos.map(todo => (
+                    <div key={todo.id}>{todo.title}</div>
+                ))
+            }
         </div>
     );
 };

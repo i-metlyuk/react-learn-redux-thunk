@@ -1,9 +1,13 @@
+import axios from "axios";
+
 export const client = async (endPoint, {body, ...customConfig} = {}) => {
     const headers = {
-        'Contect-Type': 'application/json'
+        'Content-Type': 'application/json'
     }
 
     const config = {
+        baseURL: 'https://jsonplaceholder.typicode.com/',
+        url: endPoint,
         method: body ? 'POST' : 'GET',
         ...customConfig,
         headers: {
@@ -13,15 +17,14 @@ export const client = async (endPoint, {body, ...customConfig} = {}) => {
     }
 
     if (body) {
-        config.body = JSON.stringify(body);
+        config.data = JSON.stringify(body);
     }
 
     try {
-        const response = await fetch(endPoint, config);
+        const response = await axios(config);
+        if (response.status !== 200) throw new Error('failed to fetch');
 
-        if (!response.ok) throw new Error('failed to fetch');
-
-        const data = await response.json();
+        const data = await response.data;
 
         return data;
     } catch (e) {
@@ -29,18 +32,18 @@ export const client = async (endPoint, {body, ...customConfig} = {}) => {
     }
 }
 
-client.get = function (endPoint, customConfig={}) {
+client.get = function (endPoint, customConfig = {}) {
     return client(endPoint, customConfig)
 }
 
-client.post = function (endPoint, body, customConfig={}) {
+client.post = function (endPoint, body, customConfig = {}) {
     return client(endPoint, {...customConfig, body})
 }
 
-client.delete = function (endPoint, customConfig={}) {
+client.delete = function (endPoint, customConfig = {}) {
     return client(endPoint, {...customConfig, method: "DELETE"})
 }
 
-client.patch = function (endPoint, body, customConfig={}) {
+client.patch = function (endPoint, body, customConfig = {}) {
     return client(endPoint, {...customConfig, body, method: "PATCH"})
 }

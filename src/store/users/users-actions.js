@@ -7,7 +7,7 @@ export const addUsers = (users) => ({
 })
 
 export const loadUsers = () => (dispatch) => {
-    client.get('https://jsonplaceholder.typicode.com/users')
+    client.get('users')
         .then(data => dispatch(addUsers(data)))
         .catch(e => console.error(e))
 }

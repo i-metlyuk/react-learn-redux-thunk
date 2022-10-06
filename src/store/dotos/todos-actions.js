@@ -18,8 +18,10 @@ export const setError = (error) => ({
 export const loadTodos = () => (dispatch) => {
     dispatch(setLoading());
 
-    client.get('https://jsonplaceholder.typicode.com/todos?_limit=10 ', {
-        limit: 10
+    client.get('todos', {
+        params: {
+            _limit: 10
+        }
     })
         .then(data => dispatch(addTodos(data)))
         .catch(e => dispatch(setError(e)))
