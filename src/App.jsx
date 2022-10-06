@@ -3,17 +3,23 @@ import TodoList from "./components/TodoList";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {loadUsers} from "./store/users/users-actions";
+import {loadTodos} from "./store/dotos/todos-actions";
 
 function App() {
     const dispatch = useDispatch();
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(loadUsers())
     }, [])
+
+    useEffect(() => {
+        dispatch(loadTodos())
+    })
 
     return (
         <div className="App">
             <h1>Hello</h1>
-            <div style={{display: "flex", justifyContent:"space-between"}}>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
                 <UserList/>
                 <TodoList/>
             </div>
