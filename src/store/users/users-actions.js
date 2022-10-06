@@ -1,0 +1,12 @@
+import {ADD_USERS} from "./users-consts";
+
+export const addUsers = (users) => ({
+    type: ADD_USERS,
+    payload: users
+})
+
+export const loadUsers = () => (dispatch) => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.json())
+        .then(data => dispatch(addUsers(data)))
+}
