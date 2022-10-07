@@ -1,4 +1,4 @@
-import {ADD_TODOS, SET_ERROR, SET_LOADING} from "./todos-consts";
+import {ADD_TODO, ADD_TODOS, SET_ERROR, SET_LOADING} from "./todos-consts";
 
 const initialState = {
     status: 'idle',
@@ -8,6 +8,12 @@ const initialState = {
 
 export const todosReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_TODO: {
+            return {
+                ...state,
+                todos: [...state.todos, action.payload]
+            }
+        }
         case ADD_TODOS: {
             return {
                 ...state,

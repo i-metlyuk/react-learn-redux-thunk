@@ -17,12 +17,13 @@ export const client = async (endPoint, {body, ...customConfig} = {}) => {
     }
 
     if (body) {
-        config.data = JSON.stringify(body);
+        config.data = body;
     }
 
     try {
         const response = await axios(config);
-        if (response.status !== 200) throw new Error('failed to fetch');
+
+        if ((response.status !== 200) && (response.status !== 201)) throw new Error('failed to fetch');
 
         const data = await response.data;
 
